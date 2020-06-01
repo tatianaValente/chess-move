@@ -1,68 +1,91 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Projeto criado em React para desenvolver um app com os movimentod do cavalo em um tabuleiro de Xadrez usando o Drag and Drop da biblioteca React DnD (https://github.com/react-dnd/react-dnd)
 
-## Available Scripts
+## React DnD
 
-In the project directory, you can run:
+### Criação de um novo projeto em React:
+`npx create-react-app chess-movement`
 
-### `npm start`
+### Adição da biblioteca de drag and drop:
+`npm add react-dnd react-dnd-html5-backend`
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Componentes:
+#### `<DndProvider />` - Fornece recursos React_DnD para seu aplicativo. Deve ser injetado com um back-end
+##### Props obrigatórios:
+-   backend: Um back-end do React DnD (HTML5Backend). 
+##### Exemplo:
+import { HTML5Backend } from 'react-dnd-html5-backend'
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+import { DndProvider } from 'react-dnd'
 
-### `npm test`
+export default class YourApp {
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+  render() {
+  
+    return (
+    
+      <DndProvider backend={HTML5Backend}>
+      
+        /* Your Drag-and-Drop Application */
+        
+      </DndProvider>
+      
+    )}}
 
-### `npm run build`
+### Hooks:
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+#### UseDrag  - Hook para usar o componente como fonte de arrasto (drag-source) 
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+##### Parâmteros:
+-	spec: Objeto de especificação. Array:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+[0] – objeto com propriedades da função collect()
 
-### `npm run eject`
+[1] – função para a fonte de arrasto
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+[2] – função para a visualização de arrasto
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+  ► item (obrigatório): Um objeto que descreve os dados que estão sendo arrastados. Item.type deve ser definido (string).
+  
+  ► colect (opcional): uma maneira de transformar o estado do sistema de arrastar e soltar em objetos úteis para seus componentes.
+  
+##### Exemplo:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+import { useDrag } from 'react-dnd'
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+function DraggableComponent(props) {
 
-## Learn More
+  const [collectedProps, drag] = useDrag({
+  
+    item: { id, type }
+    
+  })
+  
+  return <div ref={drag}>...</div>}
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+#### UseDrop - Hook para usar o componente como destino (drop target) 
 
-### Code Splitting
+##### Parâmteros:
+-	spec: Objeto de especificação. Array:
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+[0] – objeto com propriedades da função collect()
 
-### Analyzing the Bundle Size
+[1] – função para a fonte de destino
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+  ► accept (obrigatório)
+  
+  ► colect (opcional): uma maneira de transformar o estado do sistema de arrastar e soltar em objetos úteis para seus componentes.
 
-### Making a Progressive Web App
+##### Exemplo:
+import { useDrop } from 'react-dnd'
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+function myDropTarget(props) {
 
-### Advanced Configuration
+  const [collectedProps, drop] = useDrop({accept})
+  
+  return <div ref={drop}>Drop Target</div>}
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
 
-### Deployment
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
 
-### `npm run build` fails to minify
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
