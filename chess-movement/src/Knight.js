@@ -1,9 +1,30 @@
 import React from 'react'
+import { ItemTypes } from './Constants/ItemTypes'
+import { useDrag } from 'react-dnd'
+
 const knightStyle = {
     fontSize: '46px',
-    margin: '8px'
+    fontWeight: 'bold',
+    cursor: 'move',
 }
 
 export default function Knight() {
-    return <span style={knightStyle}>♘</span >
+
+    const [{ isDragging }, drag] = useDrag({
+        item: { type: ItemTypes.KNIGHT },
+        collect: (monitor) => ({
+            isDragging: !!monitor.isDragging()
+        })
+    })
+    return (
+        <div
+            ref={drag}
+            style={{
+                ...knightStyle,
+                opacity: isDragging ? 0.5 : 1,
+            }}
+        >
+            ♘
+        </div>)
 }
+
