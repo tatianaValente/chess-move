@@ -14,15 +14,15 @@ Projeto criado em React para desenvolver um app com os movimentod do cavalo em u
 -   backend: Um back-end do React DnD (HTML5Backend). 
 ##### Exemplo:
 ```
-import { HTML5Backend } from 'react-dnd-html5-backend' <br />
-import { DndProvider } from 'react-dnd' <br />
-export default class YourApp { <br />
-  render() { <br />
-    return ( <br />
-      <DndProvider backend={HTML5Backend}>  <br />
-        /* Your Drag-and-Drop Application */ <br />
-      </DndProvider> <br />
-    )}} <br />
+import { HTML5Backend } from 'react-dnd-html5-backend' 
+import { DndProvider } from 'react-dnd' 
+export default class YourApp {
+  render() { 
+    return ( 
+      <DndProvider backend={HTML5Backend}>  
+        /* Your Drag-and-Drop Application */ 
+      </DndProvider> 
+    )}}
 ```
 
 ### Hooks:
@@ -49,7 +49,8 @@ function DraggableComponent(props) {
   const [collectedProps, drag] = useDrag({
     item: { id, type }
   })
-  return <div ref={drag}>...</div>}
+  return <div ref={drag}>...</div>
+ }
   ```
 
 
@@ -71,5 +72,6 @@ function DraggableComponent(props) {
 import { useDrop } from 'react-dnd'
 function myDropTarget(props) {
   const [collectedProps, drop] = useDrop({accept})
-  return <div ref={drop}>Drop Target</div>}
+  return <div ref={drop}>Drop Target</div>
+ }
   ```
